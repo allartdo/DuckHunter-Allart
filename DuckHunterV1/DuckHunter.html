@@ -1,0 +1,389 @@
+<!--DuckHunter - HTML|| made by Allart de Jong and 10% by Timo Brandt -->
+<!--ⒸCopyRight A.deJong-->
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./DuckHunter.css">
+        <link href="https://fonts.googleapis.com/css?family=Kumar+One" rel="stylesheet">
+        <title>Duck Hunter</title>
+    </head>
+    <body>
+        <img class="backGround" id="backGround" draggable="false" src="./Images/achtergrondSplash.jpg">
+
+        <!--Duck Coin -->
+        <div class="borderOfDuckCoin" id="moneyDiv">
+            <h1 class="Money" id="Money">0</h1>
+            <img class="duckCoin" id="duckCoin" src="./Images/BirdCoin.png" draggable="false">
+        </div>
+
+
+        <!--Settings-->
+        <img class="settingsButton" draggable="false" onclick="settingsButton()" src="./Images/settings.png">
+
+        <div class="settingsMenu" id="settingsMenu">
+            <h1 class="settingsText">Settings</h5>
+            <h2 class="settingsText2">Main menu music: </h2> <h2 onclick="switchMainMenuMusic()" id="settingsMainMenuSoundSwitch" class="settingsText2 settingsTextON">ON</h2> 
+            <h2 class="settingsText2">In-game music:   </h2> <h2 class="settingsText2 settingsTextON">ON</h2> 
+            <h2 class="settingsText2">In-game sound:   </h2> <h2 class="settingsText2 settingsTextON">ON</h2> 
+            <h2 class="settingsText2">Fullscreen:      </h2> <h2 onclick="switchFullscreen()" id="settingsFullscreenSwitch" class="settingsText2 settingsTextON">OFF</h2> 
+        </div>
+
+
+        <!--Duck Title-->
+        <h1 class="duckTitle" id="duckTitle">Duck Hunter</h1>
+
+
+        <!--Sounds-->
+        <div style="display: none;" id="backGroundSound"></div>
+
+        <audio id="Rust" autoplay>
+            <source src="./Sounds/rust.mp3" type="audio/mp3">
+        </audio>
+
+        <audio id="gunShotSound" preload="auto">
+            <source src="./Sounds/pistolShot.mp3" type="audio/mp3">
+        </audio>
+        
+
+
+        <!--Main Menu-->
+        <div class="mmMenu" id="mmMenu">
+            <h1 class="mmTitle" onclick="playGame()">Play</h1>
+            <h1 class="mmTitle" onclick="mainMenuToLevels()">Levels</h1>
+            <h1 class="mmTitle" onclick="mainMenuToShop()">Shop</h1>
+            <h1 class="mmTitle" onclick="toCredits()">Credits</h1>
+        </div>
+        
+
+
+        <!--Play || Level 1 -->
+        <img class="world1BackGround" id="world1BackGround" draggable="false" src="./Images/world1Background.jpg">
+        <img class="dynMoveBird1" id="bird" src="./Images/SplashVogel.gif" draggable="false">
+        <img class="dynMoveBird1" id="bird2" src="./Images/Bird2.gif" draggable="false">
+        <div class="basicShopLevelsCreditsTextDiv" id="levelDiv">
+            <h1 class="basicTitle" id="levelText"></h1>
+            <h1 class="readySetGoText" id="readySetGoTextChange">3</h1>
+            <img src="Images\Gun.png" class="Gun" id="Gun1" draggable="false">
+            <img src="./images/Full hearts 1.png" class="Hearts" draggable="false">
+            <img src="./Images/inGameAmmo.png" class="ammoCircle" draggable="false">
+            <h1 class="ammoCount" id="ammoCount">10</h1>
+        </div>
+
+
+        <!--Game over || When ammo is empty or you lost all your hearts, you will come here-->
+        <div class="basicShopLevelsCreditsTextDiv" id="gameOverDiv">
+            <h1 class="basicTitle">Game over!</h1>
+            <div class="gFailAndWinMenu">
+                <div class="gClickDivs" onclick="retryLevel()">Retry</div>
+                <div class="gClickDivs" onclick="gameOverToMainMenu()">Main Menu</div>
+                <div class="gClickDivs" onclick="gameOverToLevels()">Levels</div>
+                <div class="gClickDivs" onclick="gameOverToShop()">Shop</div>
+            </div>
+        </div>
+
+
+        <!--You WIN! || When you win the game this will be shown-->
+        <div class="basicShopLevelsCreditsTextDiv" id="youWinDiv">
+            <h1 class="basicTitle">Good Hunting!</h1>
+            <div class="gFailAndWinMenu">
+                <div class="gClickDivs" onclick="youWinToNextLevel()">Next Level</div>
+                <div class="gClickDivs" onclick="youWinToMainMenu()">Main Menu</div>
+                <div class="gClickDivs" onclick="youWinToLevels()">Levels</div>
+                <div class="gClickDivs" onclick="youWinToShop()">Shop</div>
+            </div>
+        </div>
+
+
+        <!--Shop || Everything in this is the first shop Page-->
+        <div class="basicShopLevelsCreditsTextDiv" id="shopPage">
+            <h1 class="basicTitle">Shop</h1>
+            <h1 class="basicBacks" onclick="shopBackToMenu()">Back</h1>
+            <div class="sGunButton" id="sGunButton" onclick="toGunMenu()">          <!--Shop Gun Menu Button-->
+                <h1 class="sGunButtonTitle">Guns</h1>
+                <img src="./Images/FotoGunButton2.png" class="imageGunButton" draggable="false">
+            </div>
+
+            <div class="sGunButton sSkillButton" id="sSkillButton" onclick="toSkillMenu()">         <!--Shop Skill Menu Button-->
+                <h1 class="sGunButtonTitle sSkillButtonTitle">Skills</h1>
+                <img src="./Images/FotoSkillButton.png" class="sImageSkillButton" draggable="false">
+            </div>
+        </div>
+
+
+        <!--Shop Gun Menu || Everything in this div is after you click the Gun Button-->
+        <div class="basicShopLevelsCreditsTextDiv" id="sGunMenu">
+            <h1 class="basicTitle">Gun Shop</h1>
+            <div class="sborderOfGunsAndSkills">
+                <div class="gGunDivs"></div>
+                <div class="gGunDivs"></div>
+                <div class="gGunDivs"></div>
+                <div class="gGunDivs lRow2"></div>
+                <div class="gGunDivs lRow2"></div>
+                <div class="gGunDivs lRow2"></div>
+                <div class="gGunDivs lRow3"></div>
+                <div class="gGunDivs lRow3"></div>
+                <div class="gGunDivs lRow3"></div>
+                <div class="gGunDivs lRow4"></div>
+                <div class="gGunDivs lRow4"></div>
+                <div class="gGunDivs lRow4"></div>
+                <div class="gGunDivs lRow5"></div>
+                <div class="gGunDivs lRow5"></div>
+                <div class="gGunDivs lRow5"></div>
+                <div class="gGunDivs lRow6"></div>
+                <div class="gGunDivs lRow6"></div>
+                <div class="gGunDivs lRow6"></div>
+                <div class="gGunDivs lRow7"></div>
+                <div class="gGunDivs lRow7"></div>
+                <div class="gGunDivs lRow7"></div>
+                <div class="gGunDivs lRow8"></div>
+                <div class="gGunDivs lRow8"></div>
+                <div class="gGunDivs lRow8"></div>
+                <div class="gGunDivs lRow9"></div>
+                <div class="gGunDivs lRow9"></div>
+                <div class="gGunDivs lRow9"></div>
+                <div class="gGunDivs lRow10"></div>
+                <div class="gGunDivs lRow10"></div>
+                <div class="gGunDivs lRow10"></div>
+            </div>
+            <h1 class="basicBacks" onclick="backToShopMenu()">Back</h1>
+        </div>
+
+
+        <!--Shop Skill Menu || Everything in this div is after you click the Skill Button-->
+        <div class="basicShopLevelsCreditsTextDiv" id="sSkillMenu">
+            <h1 class="basicTitle">Skill Shop</h1>
+            <div class="sBorderOfGunsAndSkills"></div>
+            <div class="sBasicSkillButton">Precision
+                <img class="sUpgradeSkill" src="./Images/Plus.png" draggable="false"/>
+                <img class="sSkillImage" src="./Images/Precision.png" draggable="false"/>
+                <div class="sBasicSkillCircleBox">
+                    <div class="sBasicSkillCircle" id="skillCircle1"></div>
+                    <div class="sBasicSkillCircle sSkillCircle2" id="skillCircle2"></div>
+                    <div class="sBasicSkillCircle sSkillCircle3" id="skillCircle3"></div>
+                    <div class="sBasicSkillCircle sSkillCircle4" id="skillCircle4"></div>
+                    <div class="sBasicSkillCircle sSkillCircle5" id="skillCircle5"></div>
+                </div>
+            </div>
+            <div class="sBasicSkillButton sFasterReloadSkill">Faster reload
+                <img class="sUpgradeSkill" src="./Images/Plus.png" draggable="false"/>
+                <img class="sSkillImage" src="./Images/ReloadSpeed.png" draggable="false"/>
+                <div class="sBasicSkillCircleBox">
+                    <div class="sBasicSkillCircle" id="skillCircle1"></div>
+                    <div class="sBasicSkillCircle sSkillCircle2" id="skillCircle2"></div>
+                    <div class="sBasicSkillCircle sSkillCircle3" id="skillCircle3"></div>
+                    <div class="sBasicSkillCircle sSkillCircle4" id="skillCircle4"></div>
+                    <div class="sBasicSkillCircle sSkillCircle5" id="skillCircle5"></div>
+                </div>
+            </div>
+            <div class="sBasicSkillButton sExtraBulletsSkill">Extra bullets
+                <img class="sUpgradeSkill" src="./Images/Plus.png" draggable="false"/>
+                <img class="sSkillImage sExtraBulletsImage" src="./Images/ExtraBullets.png" draggable="false"/>
+                <div class="sBasicSkillCircleBox">
+                    <div class="sBasicSkillCircle" id="skillCircle1"></div>
+                    <div class="sBasicSkillCircle sSkillCircle2" id="skillCircle2"></div>
+                    <div class="sBasicSkillCircle sSkillCircle3" id="skillCircle3"></div>
+                    <div class="sBasicSkillCircle sSkillCircle4" id="skillCircle4"></div>
+                    <div class="sBasicSkillCircle sSkillCircle5" id="skillCircle5"></div>
+                </div>
+            </div>
+            <h1 class="basicBacks" onclick="backToShopMenu()">Back</h1>
+        </div>
+        
+
+
+        <!--Levels-->
+        <div class="basicShopLevelsCreditsTextDiv" id="levelsPage">
+            <h1 class="basicTitle">Levels</h1>
+            <div class="borderOfWorldButton" onclick="toWorld1()"> 
+                <h1 class="worldsTitle">World 1</h1>
+                <h1 class="levelNumbers">1-30</h1>
+            </div>
+            <div class="borderOfWorldButton borderOfWorldButton2" onclick="toWorld2()">
+                 <h1 class="worldsTitle">World 2</h1>
+                 <h1 class="levelNumbers levelNumbers2">31-60</h1>
+                </div>
+            <div class="borderOfWorldButton borderOfWorldButton3" onclick="toWorld3()">
+                 <h1 class="worldsTitle">World 3</h1>
+                 <h1 class="levelNumbers levelNumbers3">61-90</h1>
+                </div>
+            <div class="borderOfWorldButton borderOfWorldButton4" onclick="toWorld4()">
+                 <h1 class="worldsTitle">World 4</h1>
+                 <h1 class="levelNumbers levelNumbers4">91-120</h1>
+                </div>
+            <h1 class="basicBacks" onclick="levelsBackToMenu()">Back</h1>
+        </div>
+
+
+        <!--Levels || Worlds clicks-->
+
+        <!-- World 1-->
+        <div class="basicShopLevelsCreditsTextDiv" id="world1Menu">
+            <h1 class="basicTitle">World 1</h1>
+            <div class="lBorderOfWorlds">
+                <div class="lLevelDivs"        id="Level1" > <h1 class="lLevelNummbers">1 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs"        id="Level11"> <h1 class="lLevelNummbers">11</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs"        id="Level21"> <h1 class="lLevelNummbers">21</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level2" > <h1 class="lLevelNummbers">2 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level12"> <h1 class="lLevelNummbers">12</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level22"> <h1 class="lLevelNummbers">22</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level3" > <h1 class="lLevelNummbers">3 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level13"> <h1 class="lLevelNummbers">13</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level23"> <h1 class="lLevelNummbers">23</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level4" > <h1 class="lLevelNummbers">4 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level14"> <h1 class="lLevelNummbers">14</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level24"> <h1 class="lLevelNummbers">24</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level5" > <h1 class="lLevelNummbers">5 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level15"> <h1 class="lLevelNummbers">15</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level25"> <h1 class="lLevelNummbers">25</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level6" > <h1 class="lLevelNummbers">6 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level16"> <h1 class="lLevelNummbers">16</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level26"> <h1 class="lLevelNummbers">26</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level7" > <h1 class="lLevelNummbers">7 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level17"> <h1 class="lLevelNummbers">17</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level27"> <h1 class="lLevelNummbers">27</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level8" > <h1 class="lLevelNummbers">8 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level18"> <h1 class="lLevelNummbers">18</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level28"> <h1 class="lLevelNummbers">28</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level9" > <h1 class="lLevelNummbers">9 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level19"> <h1 class="lLevelNummbers">19</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level29"> <h1 class="lLevelNummbers">29</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level10"> <h1 class="lLevelNummbers">10</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level20"> <h1 class="lLevelNummbers">20</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level30"> <h1 class="lLevelNummbers">30</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+            </div>
+            <h1 class="basicBacks" onclick="backToLevelsMenu1()">Back</h1>
+        </div>
+
+        <!-- World 2-->
+        <div class="basicShopLevelsCreditsTextDiv" id="world2Menu">
+            <h1 class="basicTitle">World 2</h1>
+            <div class="lBorderOfWorlds lBorderOfWorlds2">
+                <div class="lLevelDivs"        id="Level31" > <h1 class="lLevelNummbers">31 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs"        id="Level41" > <h1 class="lLevelNummbers">41 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs"        id="Level51" > <h1 class="lLevelNummbers">51 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level32" > <h1 class="lLevelNummbers">32 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level42" > <h1 class="lLevelNummbers">42 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level52" > <h1 class="lLevelNummbers">52 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level33" > <h1 class="lLevelNummbers">33 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level43" > <h1 class="lLevelNummbers">43 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level53" > <h1 class="lLevelNummbers">53 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level34" > <h1 class="lLevelNummbers">34 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level44" > <h1 class="lLevelNummbers">44 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level54" > <h1 class="lLevelNummbers">54 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level35" > <h1 class="lLevelNummbers">35 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level45" > <h1 class="lLevelNummbers">45 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level55" > <h1 class="lLevelNummbers">55 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level36" > <h1 class="lLevelNummbers">36 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level46" > <h1 class="lLevelNummbers">46 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level56" > <h1 class="lLevelNummbers">56 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level37" > <h1 class="lLevelNummbers">37 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level47" > <h1 class="lLevelNummbers">47 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level57" > <h1 class="lLevelNummbers">57 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level38" > <h1 class="lLevelNummbers">38 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level48" > <h1 class="lLevelNummbers">48 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level58" > <h1 class="lLevelNummbers">58 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level39" > <h1 class="lLevelNummbers">39 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level49" > <h1 class="lLevelNummbers">49 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level59" > <h1 class="lLevelNummbers">59 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level40" > <h1 class="lLevelNummbers">40 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level50" > <h1 class="lLevelNummbers">50 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level60" > <h1 class="lLevelNummbers">60 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+            </div>
+            <h1 class="basicBacks" onclick="backToLevelsMenu2()">Back</h1>
+        </div>
+
+        <!-- World 3-->
+        <div class="basicShopLevelsCreditsTextDiv" id="world3Menu">
+            <h1 class="basicTitle">World 3</h1>
+            <div class="lBorderOfWorlds lBorderOfWorlds3">
+                <div class="lLevelDivs"        id="Level61" > <h1 class="lLevelNummbers">61 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs"        id="Level71" > <h1 class="lLevelNummbers">71 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs"        id="Level81" > <h1 class="lLevelNummbers">81 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level62" > <h1 class="lLevelNummbers">62 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level72" > <h1 class="lLevelNummbers">72 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level82" > <h1 class="lLevelNummbers">82 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level63" > <h1 class="lLevelNummbers">63 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level73" > <h1 class="lLevelNummbers">73 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level83" > <h1 class="lLevelNummbers">83 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level64" > <h1 class="lLevelNummbers">64 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level74" > <h1 class="lLevelNummbers">74 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level84" > <h1 class="lLevelNummbers">84 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level65" > <h1 class="lLevelNummbers">65 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level75" > <h1 class="lLevelNummbers">75 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level85" > <h1 class="lLevelNummbers">85 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level66" > <h1 class="lLevelNummbers">66 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level76" > <h1 class="lLevelNummbers">76 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level86" > <h1 class="lLevelNummbers">86 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level67" > <h1 class="lLevelNummbers">67 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level77" > <h1 class="lLevelNummbers">77 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level87" > <h1 class="lLevelNummbers">87 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level68" > <h1 class="lLevelNummbers">68 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level78" > <h1 class="lLevelNummbers">78 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level88" > <h1 class="lLevelNummbers">88 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level69" > <h1 class="lLevelNummbers">69 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level79" > <h1 class="lLevelNummbers">79 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level89" > <h1 class="lLevelNummbers">89 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level70" > <h1 class="lLevelNummbers">70 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level80" > <h1 class="lLevelNummbers">80 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level90" > <h1 class="lLevelNummbers">90 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+            </div>
+            <h1 class="basicBacks" onclick="backToLevelsMenu3()">Back</h1>
+        </div>
+   
+        <!-- World 4-->
+        <div class="basicShopLevelsCreditsTextDiv" id="world4Menu">
+            <h1 class="basicTitle">World 4</h1>
+            <div class="lBorderOfWorlds lBorderOfWorlds4">
+                <div class="lLevelDivs"        id="Level91" > <h1 class="lLevelNummbers">91 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs"        id="Level101"> <h1 class="lLevelNummbers">101</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs"        id="Level111"> <h1 class="lLevelNummbers">111</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level92" > <h1 class="lLevelNummbers">92 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level102"> <h1 class="lLevelNummbers">102</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow2"  id="Level112"> <h1 class="lLevelNummbers">112</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level93" > <h1 class="lLevelNummbers">93 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level103"> <h1 class="lLevelNummbers">103</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow3"  id="Level113"> <h1 class="lLevelNummbers">113</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level94" > <h1 class="lLevelNummbers">94 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level104"> <h1 class="lLevelNummbers">104</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow4"  id="Level114"> <h1 class="lLevelNummbers">114</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level95" > <h1 class="lLevelNummbers">95 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level105"> <h1 class="lLevelNummbers">105</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow5"  id="Level115"> <h1 class="lLevelNummbers">115</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level96" > <h1 class="lLevelNummbers">96 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level106"> <h1 class="lLevelNummbers">106</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow6"  id="Level116"> <h1 class="lLevelNummbers">116</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level97" > <h1 class="lLevelNummbers">97 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level107"> <h1 class="lLevelNummbers">107</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow7"  id="Level117"> <h1 class="lLevelNummbers">117</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level98" > <h1 class="lLevelNummbers">98 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level108"> <h1 class="lLevelNummbers">108</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow8"  id="Level118"> <h1 class="lLevelNummbers">118</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level99" > <h1 class="lLevelNummbers">99 </h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level109"> <h1 class="lLevelNummbers">109</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow9"  id="Level119"> <h1 class="lLevelNummbers">119</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level100"> <h1 class="lLevelNummbers">100</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level110"> <h1 class="lLevelNummbers">110</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+                <div class="lLevelDivs lRow10" id="Level120"> <h1 class="lLevelNummbers">120</h1> <img class="lLevelBird" src="./Images/LevelBird.png"></div>
+            </div>
+            <h1 class="basicBacks" onclick="backToLevelsMenu4()">Back</h1>
+        </div>
+
+
+
+        <!--Credits-->
+        <div class="basicShopLevelsCreditsTextDiv" id="creditsPage">
+            <h1 class="basicTitle">Credits</h1>
+            <h1 class="cBasicText cCreators">Creators</h1>
+            <h1 class="cBasicText cSound">Sound</h1>
+            <h1 class="cBasicText cDesign">Design</h1>
+            <h1 class="cBasicText cIdeas">Idea's</h1>
+            <h1 class="cBasicText cCreatorsNames">Allart de Jong Timo brandt</h1>
+            <h1 class="cBasicText cCreatorsNames cCreators">Allart de Jong Timo brandt</h1>
+            <h1 class="cBasicText cCreatorsNames cDesign">Allart de Jong Timo brandt Indy brandt Nick Glazenburg</h1>
+            <h1 class="cBasicText cCreatorsNames cIdeas">Allart de Jong Timo brandt</h1>
+            <h1 class="basicBacks" onclick="creditsBackToMenu()">Back</h1>
+        </div>
+
+
+        <script type="text/javascript" src="./DuckHunter.js"> </script>
+    </body>
+</html>
