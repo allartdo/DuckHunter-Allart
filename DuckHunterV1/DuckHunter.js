@@ -26,8 +26,8 @@ var duckTitle = document.getElementById('duckTitle');
 var levelDiv = document.getElementById("levelDiv");
 
 //Play
-var bird1Variables = [move = -200, speedLeft = 2, speedRight = 2, speedTop = 2, randomTop = 450, dontGoDownAnymore = 0, goingRight = 0, goingLeft = 0, lostHalfAHearth = 0, dontLoseLifeOnHit = 0];
-var bird2Variables = [move2 = 2250, randomTop2 = 450, dontGoDownAnymore2 = 0, goingRight2 = 0, goingLeft2 = 0, dontLoseLifeOnHit2 = 0];
+var bird1Variables = [move = -200, speedLeft = 2, speedRight = 2, speedTop = 2, randomTop = 450, goingRight = 0, goingLeft = 0, lostHalfAHeart = 0, dontLoseLifeOnHit = 0];
+var bird2Variables = [move2 = 2250, randomTop2 = 450, goingRight2 = 0, goingLeft2 = 0, dontLoseLifeOnHit2 = 0];
 var resetMoveTop;                       //Made to stop the movement of the bird by going up. 
 var resetNumber;                        //Made to stop the random number generator
 var resetRight;                         //Made to stop the movement to the right.
@@ -50,6 +50,7 @@ var bird2 = document.getElementById("bird2");               //Same here. This is
 var moneyCount = document.getElementById('Money');          //Made to count the money and show the player how much money he got.
 var Money = 0;                                              //This is the amount of money the player has.
 var Ammo = 10;                                              //This is the amount of bullets the player has.
+
 
 
 
@@ -140,62 +141,52 @@ function startAgain() {
 
 
 function resetBirds() {
-    move = -200, randomTop = 450, goingRight = 0, goingLeft = 0, lostHalfAHearth = 0, dontLoseLifeOnHit = 0;
-    move2 = 2250, randomTop2 = 250, goingRight2 = 0, goingLeft2 = 0, dontLoseLifeOnHit2 = 0;
+    move = -200, randomTop = 450, goingRight = 0, goingLeft = 0, lostHalfAHeart = 0, dontLoseLifeOnHit = 0; //move is the position the bird starts at the start of the game, goingRight and goingLeft are made to let the computer know wich way the birds are heading at.
+    move2 = 2250, randomTop2 = 250, goingRight2 = 0, goingLeft2 = 0, dontLoseLifeOnHit2 = 0;    //lostHakfAHearth is made to count the birds the player have missed (when they hit the border this will activate). dontLoseLifeOnHit is made so the player wont lose a heart's when 
 }
 
-function gunShot() {
-    levelDiv.onmousedown = function() {
-        Ammo--;
-        ammoCount.innerHTML = Ammo;
-        gunShotSound.play();
-        if(Ammo == 0 && hitPoints < hitsNeeded) {
-            Ammo ++;
-            console.log(Ammo);
-            gameOver();
+function gunShot() {                                            //The shooting function.
+
+    function basicShot() {
+        Ammo--;                                                 //You will lose one bullet, ammo -- means -1.
+        ammoCount.innerHTML = Ammo;                             //ammoCount starts with 0 and now we change the ammoCount's number to the number that Ammo is.
+        gunShotSound.play();                                    //The shound of the gun will start playing.
+        if (Ammo == 0 && hitPoints < hitsNeeded) {              //If your ammo is the same as 0 (empty) and the amount of birds you shot (hitPoints) is bigger then (<) the hits you need (hitsNeeded) then...
+            console.log("Ammo = " + Ammo);                      //Checking here my Ammo to see what my Ammo is i used it some times to check what my ammo really is.
+            gameOver();                                         //Game over.
         }
     }
-}
 
-bird1.onmousedown = function hitBird1() {     
-    bird1.style.visibility = "hidden";
-    dontLoseLifeOnHit = 1;
-    hitPoints ++;
-    Money += 50;
-    moneyCount.innerHTML = Money;
-    Ammo--;
-    ammoCount.innerHTML = Ammo;
-    gunShotSound.play();
-    if(Ammo == 0 && hitPoints < hitsNeeded) {
-        Ammo ++;
-        gameOver();
+    function hitPointChecker() {
+        hitPoints ++;                                           //hitPoints ++, on this way i count my hitted birds.
+        Money += 50;                                            //You will get + 50 money for shooting a bird (+= means adding, + means set and ++ only plus 1).
+        moneyCount.innerHTML = Money;                           //This works just like ammoCount, i change the text to the amount of money.
+        basicShot();                                            //Function above will be activated (basicShot).
+        if (hitPoints == hitsNeeded) {                          //If the amount of birds (hitPoints) are the same as (==) the amount of birds you have to shoot (hitsNeeded) then...
+            youWin();                                           //Then you win the game (youWin() function will activate).
+        }
     }
-    if (hitPoints == hitsNeeded) {
-        youWin();
-    }
-}
 
-bird2.onmousedown = function hitBird1() {     
-    bird2.style.visibility = "hidden";
-    dontLoseLifeOnHit2 = 1;
-    hitPoints ++;
-    Money += 50;
-    moneyCount.innerHTML = Money;
-    Ammo--;
-    ammoCount.innerHTML = Ammo;
-    gunShotSound.play();
-    if(Ammo == 0 && hitPoints < hitsNeeded) {
-        Ammo ++;
-        gameOver();
+    levelDiv.onmousedown = function() {                         //When you press any mouse button on the levelDiv element then this function will activate
+        basicShot();                                            //Function above will be activated (basicShot).
     }
-    if (hitPoints == hitsNeeded) {
-        youWin();
+
+    bird1.onmousedown = function hitBird1() {                   //When you hit a bird by pressing you mouse button down this activates.
+        bird1.style.visibility = "hidden";                      //The bird goes invisible, if i make it display none, it would be gone from the page and not keep on moving.
+        dontLoseLifeOnHit = 1;                                  //I make dontLoseLifeOnHit 1 so in the later function the player will never lose a half or hole heart
+        hitPointChecker();                                      //Function above will be activated (hitPointChecker).
+    }
+
+    bird2.onmousedown = function hitBird1() {                   //ALL SAME CODE AS ABOVE BUT NOW ABOUT A SECOND BIRD.
+        bird2.style.visibility = "hidden";
+        dontLoseLifeOnHit2 = 1;
+        hitPointChecker();
     }
 }
 
-window.onmousemove = function(e) {          //the gun now follows the mouse 
-    var x = e.pageX;
-    Gun1.style.left = x - 50 + 'px';
+levelDiv.onmousemove = function(e) {                    //function that activates everytime your mouse moves.
+    var x = e.pageX;                                    //x is now same as the pageX position
+    Gun1.style.left = x - 50 + 'px';                    //The position of the Gun is now set to the page his X position + 50 px. 50 so it looks like your shooting forward.
 }
 
 function Bird1() {                              //FIRST MADE BIRD...        Allart de Jong :)
@@ -204,40 +195,35 @@ moveTillBorder();
 goRight();
 
     function getRandomTopNumber() {
-        randomTop = Math.round(Math.random()*document.body.clientHeight);
+        randomTop = Math.round(Math.random()*884);
         resetNumber = setInterval(function(){
-            randomTop = Math.round(Math.random()*document.body.clientHeight);
-            dontGoDownAnymore = 0;
+            randomTop = Math.round(Math.random()*884);
+            
             console.log("random number bird 1: " + randomTop);
-        }, randomTopNumberDuration);
+        }, 500);
     }
 
     function moveTillBorder() {
         resetMoveTop = setInterval(function(){
-            if (bird1.offsetTop > document.body.clientHeight - 100) {
-                bird1.style.top = bird1.offsetTop -= speedTop;
-                dontGoDownAnymore = 1;
-            } else if ((randomTop > bird1.offsetTop) && (dontGoDownAnymore == 0)) {
-                bird1.style.top = bird1.offsetTop += speedTop;                 //3px if you want to zoom out and be able to use this function (25% zoom = max zoom out in chrome)
-                //console.log(bird1.style.top);
-                //console.log(randomTop);
+            if (randomTop > bird1.offsetTop) {
+                bird1.style.top = bird1.offsetTop += speedTop;
             } else if (randomTop < bird1.offsetTop) {
-                bird1.style.top = bird1.offsetTop -= speedTop;                 //1 pixel with 100% zoom or higher
+                bird1.style.top = bird1.offsetTop -= speedTop;
             }
+            //console.log(bird1.style.top);
+            //console.log(randomTop);
 
             if (bird1.offsetTop == randomTop -1) {
                 bird1.style.top = bird1.offsetTop = randomTop;
             } else if (bird1.offsetTop == randomTop +1) {
                 bird1.style.top = bird1.offsetTop = randomTop;
             }
-
-            if (bird1.offsetTop == randomTop) {
-                bird1.style.top = bird1.offsetTop += 0;
-            } 
-
-
         }, 1);
     }
+
+    //Ik wil hier dat de vogel naar de 
+
+    console.log(document.body.clientHeight);
 
     function goRight() {
         resetRight = setInterval(function(){
@@ -247,10 +233,10 @@ goRight();
             bird1.style.left = move + "px";
             if (move > document.body.clientWidth + 100) {
                 if (dontLoseLifeOnHit == 0) {
-                    lostHalfAHearth +=1;
-                    console.log(lostHalfAHearth);
+                    lostHalfAHeart +=1;
+                    console.log(lostHalfAHeart);
                 }
-                if (lostHalfAHearth == 10) {
+                if (lostHalfAHeart == 10) {
                     gameOver();
                 } else {
                 goingLeft = 1;
@@ -271,11 +257,11 @@ goRight();
             bird1.style.left = move + "px";
             if (move < document.body.clientLeft - 200) {
                 if (dontLoseLifeOnHit == 0) {
-                    lostHalfAHearth +=1;
+                    lostHalfAHeart +=1;
                     //alert("You lost half a heart!")
-                    console.log(lostHalfAHearth);
+                    console.log(lostHalfAHeart);
                 }
-                if (lostHalfAHearth == 10) {
+                if (lostHalfAHeart == 10) {
                     gameOver();
                 } else {
                 goingRight = 1;
@@ -299,7 +285,6 @@ bird2.style.display = "block";
         randomTop2 = Math.round(Math.random()*document.body.clientHeight);
         resetNumber2 = setInterval(function(){
             randomTop2 = Math.round(Math.random()*document.body.clientHeight);
-            dontGoDownAnymore2 = 0;
             console.log("random number bird 2: " + randomTop2);
         }, randomTopNumberDuration);
     }
@@ -308,8 +293,7 @@ bird2.style.display = "block";
         resetMoveTop2 = setInterval(function(){          
             if (bird2.offsetTop > document.body.clientHeight - 100) {
                 bird2.style.top = bird2.offsetTop -= speedTop;
-                dontGoDownAnymore2 = 1;
-            } else if ((randomTop2 > bird2.offsetTop) && (dontGoDownAnymore2 == 0)) {
+            } else if (randomTop2 > bird2.offsetTop) {
                 bird2.style.top = bird2.offsetTop += speedTop;                 //3px if you want to zoom out and be able to use this function (25% zoom = max zoom out in chrome)
                 //console.log(bird2.style.top);
                 //console.log(randomTop2);
@@ -339,10 +323,10 @@ bird2.style.display = "block";
             bird2.style.left = move2 + "px";
             if (move2 > document.body.clientWidth + 300) {
                 if (dontLoseLifeOnHit2 == 0) {
-                    lostHalfAHearth +=1;
-                    console.log(lostHalfAHearth);
+                    lostHalfAHeart +=1;
+                    console.log(lostHalfAHeart);
                 }
-                if (lostHalfAHearth == 10) {
+                if (lostHalfAHeart == 10) {
                     gameOver();
                 } else {
                 goingLeft2 = 1;
@@ -363,11 +347,11 @@ bird2.style.display = "block";
             bird2.style.left = move2 + "px";
             if (move2 < document.body.clientLeft - 300) {
                 if (dontLoseLifeOnHit2 == 0) {
-                    lostHalfAHearth +=1;
+                    lostHalfAHeart +=1;
                     //alert("You lost half a heart!")
-                    console.log(lostHalfAHearth);
+                    console.log(lostHalfAHeart);
                 }
-                if (lostHalfAHearth == 10) {
+                if (lostHalfAHeart == 10) {
                     gameOver();
                 } else {
                 goingRight2 = 1;
@@ -401,7 +385,6 @@ function playGame() {                                       //Function made for 
     levelDiv.onmousedown = 0;
     hitPoints = 0;
     Ammo = 10;
-    ammoCount.innerHTML = Ammo;
     goToLevelTrue = 0;
     gamesWonTrue = 0;
     hideSettingsMenu();
