@@ -200,7 +200,7 @@ goRight();
             randomTop = Math.round(Math.random()*884);
             
             console.log("random number bird 1: " + randomTop);
-        }, 500);
+        }, randomTopNumberDuration);
     }
 
     function moveTillBorder() {
@@ -385,6 +385,7 @@ function playGame() {                                       //Function made for 
     levelDiv.onmousedown = 0;
     hitPoints = 0;
     Ammo = 10;
+    ammoCount.innerHTML = Ammo;
     goToLevelTrue = 0;
     gamesWonTrue = 0;
     hideSettingsMenu();
